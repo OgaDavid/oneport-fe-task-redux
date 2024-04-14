@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Poppins", sans-serif;
+* {
+  font-family: inter;
+  scroll-behavior: smooth;
+}
+
+/* Add satoshi font */
+@font-face {
+  font-family: "satoshi";
+  src: url("../fonts/satoshi-Medium.otf");
+}
+
+.satoshi {
+  font-family: satoshi;
+}
+
+.container {
+  @apply px-6 max-w-[1200px] mx-auto;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
 }
