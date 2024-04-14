@@ -1,8 +1,8 @@
 // import store from "store";
 
 import axios from "axios";
-//apply base url for axios
-const API_URL = process.env.VITE_API_URL;
+//apply base url for axiosaga
+const API_URL = import.meta.env.VITE_API_URL;
 
 const axiosApi = axios.create({
   baseURL: API_URL,

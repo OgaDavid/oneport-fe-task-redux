@@ -1,2 +1,3 @@
 // Desc: API Endpoints
-export const getSpecialRateUrl = "live_rates/get_special_rates";
+export const getSpecialRateUrl =
+  "https://oneport365.free.beeceptor.com/live_rates";
