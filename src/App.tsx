@@ -1,8 +1,14 @@
+import RatesComponent from "@/components/rates/RatesComponent";
+
 function App() {
   return (
-    <div>
-      <h1 className="text-red-500">React App</h1>
-      <p>React App with TypeScript</p>
+    <div className="py-14 container">
+      <div className="relative">
+        <h1 className="text-[40px] satoshi text-custom-black font-medium">
+          Special Rates
+        </h1>
+        <RatesComponent />
+      </div>
     </div>
   );
 }
