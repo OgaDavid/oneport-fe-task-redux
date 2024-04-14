@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
+import rates from "@/store/rates/reducer";
 
 const rootReducer = combineReducers({
-  // Add reducers here
+  rates,
 });
 
 export default rootReducer;

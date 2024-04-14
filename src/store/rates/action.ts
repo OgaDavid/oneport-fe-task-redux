@@ -7,3 +7,10 @@ export const getSpecialRate = (data: any) => {
     payload: { data },
   };
 };
+
+export const getSpecialRateSuccess = (response: any) => {
+  return {
+    type: GET_SPECIAL_RATE.SUCCESS,
+    payload: response,
+  };
+};
