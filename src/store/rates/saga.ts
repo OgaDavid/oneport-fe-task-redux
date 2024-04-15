@@ -1,7 +1,8 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { getSpecialRateSuccess } from "./action";
+import { getSpecialRateFailure, getSpecialRateSuccess } from "./action";
 import { GET_SPECIAL_RATE } from "./constants";
 import rateServices from "@/api/services/rates";
+import { errorHandler } from "@/helpers/errorHandler";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function* getSpecialRate({ payload }: any) {
@@ -12,7 +13,8 @@ function* getSpecialRate({ payload }: any) {
       yield put(getSpecialRateSuccess(response.data));
     }
   } catch (error) {
-    console.log(error);
+    const message = errorHandler(error);
+    yield put(getSpecialRateFailure(message));
   }
 }
 

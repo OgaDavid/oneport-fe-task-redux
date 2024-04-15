@@ -24,6 +24,12 @@ const rates = (state = initialState, action) => {
         total_special_rates: action.payload.total_rates,
       };
       break;
+    case GET_SPECIAL_RATE.FAILURE:
+      state = {
+        ...state,
+        error: action.payload.error,
+        getting_special_rates: false,
+      }
   }
 
   return state;
