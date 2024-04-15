@@ -9,7 +9,6 @@ export function getUniqueLiners(rates) {
     uniqueLinerNames.push(rate.carrier_name as string);
   });
   const uniqueLinerNamesArray = [...new Set(uniqueLinerNames)];
-  console.log(uniqueLinerNamesArray);
 
   return uniqueLinerNamesArray;
 }
