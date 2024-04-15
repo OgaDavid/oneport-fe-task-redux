@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import RatesContainer from "./RatesContainer";
 import RatesList from "./RatesList";
+import { getUniqueLiners } from "@/helpers/utils";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const RatesComponent = (props: any) => {
@@ -13,6 +14,9 @@ const RatesComponent = (props: any) => {
 
   const [size] = useState<string>("20FT");
   const [type] = useState<string>("dry");
+
+  const uniqueLiners = getUniqueLiners(special_rates.rates);
+  const [currentLiner, setCurrentLiner] = useState(uniqueLiners[0])
 
   //fetches the special rates
   useEffect(() => {
@@ -24,7 +28,28 @@ const RatesComponent = (props: any) => {
 
   return (
     <>
-      <div></div>
+      <div>
+        <div className="mt-10 pb-8 border-b border-custom-border-grey flex flex-col gap-y-5 md:gap-y-0 md:flex-row md:justify-between md:items-center gap-x-3 relative">
+      <div className="flex items-center gap-x-3">
+        {/* <RateSelect type="size" />
+        <RateSelect type="type" /> */}
+        HELLO
+      </div>
+        <div className="flex scrollbar items-center gap-x-3 max-w-[520px] lg:max-w-[750px] overflow-auto">
+      {uniqueLiners.map((liner, i) => (
+        <div
+          onClick={() => {
+            setCurrentLiner(liner);
+          }}
+          key={i}
+          className={`${currentLiner === liner ? "bg-custom-blue text-white" : ""} flex items-center gap-x-2 px-4 py-3 border-solid border-[1px] rounded w-auto min-w-fit cursor-pointer border-[#9CA3AF] text-[#1F2937]`}
+        >
+          {liner as string}
+        </div>
+      ))}
+    </div>
+    </div>
+      </div>
 
       {getting_special_rates ? (
         <div className="flex items-center justify-center">
