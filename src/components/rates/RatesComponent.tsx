@@ -4,16 +4,12 @@ import { connect } from "react-redux";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import RatesContainer from "./RatesContainer";
 import RatesList from "./RatesList";
-// import { getUniqueLiners } from "@/helpers/utils";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const RatesComponent = (props: any) => {
   const { error, getting_special_rates, special_rates, getSpecialRate } = props;
 
-  // const [specialRates, setSpecialRates] = useState([]);
-  // const [linerList, setLinerList] = useState([]);
-
-  console.log(error, getting_special_rates, special_rates);
+  console.log(special_rates.rates);
 
   const [size] = useState<string>("20FT");
   const [type] = useState<string>("dry");
@@ -25,11 +21,6 @@ const RatesComponent = (props: any) => {
       container_size: size,
     });
   }, [size, type]);
-
-  // useEffect(() => {
-  //   const uniqueLiners = getUniqueLiners(special_rates);
-
-  // }, [])
 
   return (
     <>
@@ -45,7 +36,7 @@ const RatesComponent = (props: any) => {
             {special_rates.length === 0 || error ? (
               <p>No Rates to Display</p>
             ) : (
-              <RatesList />
+              <RatesList rates={special_rates.rates} />
             )}
           </RatesContainer>
         </div>
