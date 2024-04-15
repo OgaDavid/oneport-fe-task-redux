@@ -2,12 +2,11 @@ import RateCard from "./RateCard";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const RatesList = (special_rates: any) => {
-  console.log(special_rates);
   return (
     <>
-      {special_rates.rates.map((rate, i) => (
+      {special_rates.rates.map((rate, idx) => (
         <RateCard
-          key={i}
+          key={idx}
           amountUsd={rate.total_amount_usd}
           carrier_name={rate.carrier_name}
           demurrage_days={rate.demurrage_days}

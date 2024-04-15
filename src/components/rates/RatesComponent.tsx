@@ -6,6 +6,15 @@ import RatesContainer from "./RatesContainer";
 import RatesList from "./RatesList";
 import { getUniqueLiners } from "@/helpers/utils";
 
+const SingleLiner = ({ liner, selectedLiner, setSelectedLiner }) => (
+  <div
+    className={`${selectedLiner === liner ? "bg-custom-blue text-white" : ""} flex items-center gap-x-2 px-4 py-3 border-solid border-[1px] rounded w-auto min-w-fit cursor-pointer border-[#9CA3AF] text-[#1F2937]`}
+    onClick={() => setSelectedLiner(liner)}
+  >
+    {liner}
+  </div>
+);
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const RatesComponent = (props: any) => {
   const { error, getting_special_rates, special_rates, getSpecialRate } = props;
@@ -13,9 +22,10 @@ const RatesComponent = (props: any) => {
   const [size] = useState<string>("20FT");
   const [type] = useState<string>("dry");
 
-  const _uniqueLiners = getUniqueLiners(special_rates.rates);
-  const [currentLiner, setCurrentLiner] = useState(_uniqueLiners[0]);
-  console.log(currentLiner);
+  const [linerList, setLinerList] = useState([]);
+  const [selectedLiner, setSelectedLiner] = useState("");
+
+  const [specialRates, setSpecialRates] = useState([]);
 
   //fetches the special rates
   useEffect(() => {
@@ -24,6 +34,20 @@ const RatesComponent = (props: any) => {
       container_size: size,
     });
   }, [size, type]);
+
+  useEffect(() => {
+    const _uniqueLiners = getUniqueLiners(special_rates.rates);
+    setLinerList(_uniqueLiners);
+    setSelectedLiner(_uniqueLiners[0]);
+
+    setSpecialRates(
+      special_rates.rates
+        ? special_rates.rates.filter(
+            (rate) => rate.carrier_name === _uniqueLiners[0]
+          )
+        : []
+    );
+  }, [special_rates]);
 
   return (
     <>
@@ -35,17 +59,15 @@ const RatesComponent = (props: any) => {
             HELLO
           </div>
           <div className="flex scrollbar items-center gap-x-3 max-w-[520px] lg:max-w-[750px] overflow-auto">
-            {_uniqueLiners.map((liner, i) => (
-              <div
-                onClick={() => {
-                  setCurrentLiner(liner);
-                }}
-                key={i}
-                className={`${currentLiner === liner ? "bg-custom-blue text-white" : ""} flex items-center gap-x-2 px-4 py-3 border-solid border-[1px] rounded w-auto min-w-fit cursor-pointer border-[#9CA3AF] text-[#1F2937]`}
-              >
-                {liner as string}
-              </div>
-            ))}
+            {linerList.length > 0 &&
+              linerList.map((liner, idx) => (
+                <SingleLiner
+                  key={idx}
+                  liner={liner}
+                  selectedLiner={selectedLiner}
+                  setSelectedLiner={setSelectedLiner}
+                />
+              ))}
           </div>
         </div>
       </div>
@@ -57,10 +79,10 @@ const RatesComponent = (props: any) => {
       ) : (
         <div>
           <RatesContainer>
-            {special_rates.length === 0 || error ? (
+            {specialRates.length === 0 || error ? (
               <p>No Rates to Display</p>
             ) : (
-              <RatesList rates={special_rates.rates} />
+              <RatesList rates={specialRates} />
             )}
           </RatesContainer>
         </div>
