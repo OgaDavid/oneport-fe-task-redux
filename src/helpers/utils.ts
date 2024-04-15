@@ -1,15 +1,15 @@
 export function getUniqueLiners(rates) {
-  // Create a Set to store unique carrier names
-  const uniqueLinerNames = new Set();
+  if (!rates) {
+    return [];
+  }
 
-  // Iterate over the rates and add each name to the Set
+  const uniqueLinerNames = [];
   rates.forEach((rate) => {
-    uniqueLinerNames.add(rate.carrier_name);
-    console.log(uniqueLinerNames);
+    // @ts-expect-error error
+    uniqueLinerNames.push(rate.carrier_name as string);
   });
-
-  // Convert the Set back to an array
-  const uniqueLinerNamesArray = [...uniqueLinerNames];
+  const uniqueLinerNamesArray = [...new Set(uniqueLinerNames)];
+  console.log(uniqueLinerNamesArray);
 
   return uniqueLinerNamesArray;
 }

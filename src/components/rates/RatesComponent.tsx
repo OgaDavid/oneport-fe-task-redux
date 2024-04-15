@@ -10,13 +10,12 @@ import { getUniqueLiners } from "@/helpers/utils";
 const RatesComponent = (props: any) => {
   const { error, getting_special_rates, special_rates, getSpecialRate } = props;
 
-  console.log(special_rates.rates);
-
   const [size] = useState<string>("20FT");
   const [type] = useState<string>("dry");
 
-  const uniqueLiners = getUniqueLiners(special_rates.rates);
-  const [currentLiner, setCurrentLiner] = useState(uniqueLiners[0])
+  const _uniqueLiners = getUniqueLiners(special_rates.rates);
+  const [currentLiner, setCurrentLiner] = useState(_uniqueLiners[0]);
+  console.log(currentLiner);
 
   //fetches the special rates
   useEffect(() => {
@@ -30,25 +29,25 @@ const RatesComponent = (props: any) => {
     <>
       <div>
         <div className="mt-10 pb-8 border-b border-custom-border-grey flex flex-col gap-y-5 md:gap-y-0 md:flex-row md:justify-between md:items-center gap-x-3 relative">
-      <div className="flex items-center gap-x-3">
-        {/* <RateSelect type="size" />
+          <div className="flex items-center gap-x-3">
+            {/* <RateSelect type="size" />
         <RateSelect type="type" /> */}
-        HELLO
-      </div>
-        <div className="flex scrollbar items-center gap-x-3 max-w-[520px] lg:max-w-[750px] overflow-auto">
-      {uniqueLiners.map((liner, i) => (
-        <div
-          onClick={() => {
-            setCurrentLiner(liner);
-          }}
-          key={i}
-          className={`${currentLiner === liner ? "bg-custom-blue text-white" : ""} flex items-center gap-x-2 px-4 py-3 border-solid border-[1px] rounded w-auto min-w-fit cursor-pointer border-[#9CA3AF] text-[#1F2937]`}
-        >
-          {liner as string}
+            HELLO
+          </div>
+          <div className="flex scrollbar items-center gap-x-3 max-w-[520px] lg:max-w-[750px] overflow-auto">
+            {_uniqueLiners.map((liner, i) => (
+              <div
+                onClick={() => {
+                  setCurrentLiner(liner);
+                }}
+                key={i}
+                className={`${currentLiner === liner ? "bg-custom-blue text-white" : ""} flex items-center gap-x-2 px-4 py-3 border-solid border-[1px] rounded w-auto min-w-fit cursor-pointer border-[#9CA3AF] text-[#1F2937]`}
+              >
+                {liner as string}
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
-    </div>
       </div>
 
       {getting_special_rates ? (
