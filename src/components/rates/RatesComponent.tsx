@@ -35,6 +35,7 @@ const RatesComponent = (props: any) => {
     });
   }, [size, type]);
 
+  // set special rate and liners to an array
   useEffect(() => {
     const _uniqueLiners = getUniqueLiners(special_rates.rates);
     setLinerList(_uniqueLiners);
@@ -48,6 +49,17 @@ const RatesComponent = (props: any) => {
         : []
     );
   }, [special_rates]);
+
+  // sorts the special rates
+  useEffect(() => {
+    setSpecialRates(
+      special_rates.rates
+        ? special_rates.rates.filter(
+            (rate) => rate.carrier_name === selectedLiner
+          )
+        : []
+    );
+  }, [selectedLiner]);
 
   return (
     <>
