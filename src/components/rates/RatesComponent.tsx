@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getSpecialRate } from "@/store/rates/action";
 import { connect } from "react-redux";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -23,6 +23,15 @@ const RatesComponent = (props: any) => {
   const [itemsPerPage, setItemsPerPage] = useState(9);
 
   const [specialRates, setSpecialRates] = useState([]);
+
+  const scrollref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollref?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [itemsPerPage]);
 
   //fetches the special rates
   useEffect(() => {
@@ -60,45 +69,52 @@ const RatesComponent = (props: any) => {
 
   return (
     <>
-      <RatesHeader>
-        <RateOptions
-          size={size}
-          type={type}
-          setSize={setSize}
-          setType={setType}
-        />
-        <RatesFilter
-          linerList={linerList}
-          selectedLiner={selectedLiner}
-          setSelectedLiner={setSelectedLiner}
-        />
-      </RatesHeader>
-
-      {getting_special_rates ? (
-        <div className="flex items-center justify-center">
-          <LoadingSpinner />
+      <div className="py-14 container" ref={scrollref}>
+        <div className="relative">
+          <h1 className="text-[40px] satoshi text-custom-black font-medium">
+            Special Rates
+          </h1>
         </div>
-      ) : (
-        <div>
-          <RatesContainer>
-            {specialRates.length === 0 || error ? (
-              <p>No Rates to Display</p>
-            ) : (
-              <RatesList
+        <RatesHeader>
+          <RateOptions
+            size={size}
+            type={type}
+            setSize={setSize}
+            setType={setType}
+          />
+          <RatesFilter
+            linerList={linerList}
+            selectedLiner={selectedLiner}
+            setSelectedLiner={setSelectedLiner}
+          />
+        </RatesHeader>
+
+        {getting_special_rates ? (
+          <div className="flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <div>
+            <RatesContainer>
+              {specialRates.length === 0 || error ? (
+                <p>No Rates to Display</p>
+              ) : (
+                <RatesList
+                  itemsPerPage={itemsPerPage}
+                  special_rates={specialRates as any}
+                />
+              )}
+            </RatesContainer>
+            {specialRates.length >= itemsPerPage && (
+              <RatesPagination
+                special_rates={specialRates}
                 itemsPerPage={itemsPerPage}
-                special_rates={specialRates as any}
+                setItemsPerPage={setItemsPerPage}
               />
             )}
-          </RatesContainer>
-          {specialRates.length >= itemsPerPage && (
-            <RatesPagination
-              special_rates={specialRates}
-              itemsPerPage={itemsPerPage}
-              setItemsPerPage={setItemsPerPage}
-            />
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </>
   );
 };
