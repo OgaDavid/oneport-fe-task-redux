@@ -1,13 +1,4 @@
-interface RateCardProps {
-  carrier_name: string;
-  origin_port_code: string;
-  destination_port_code: string;
-  sailing_date: string;
-  transit_time?: string;
-  detention_days: number;
-  demurrage_days: number;
-  amountUsd: number;
-}
+import dash from "@/assets/dash.svg";
 
 const RateCard = ({
   carrier_name,
@@ -18,7 +9,7 @@ const RateCard = ({
   detention_days,
   demurrage_days,
   amountUsd,
-}: RateCardProps) => {
+}) => {
   return (
     <div className="p-5 cursor-pointer border-[2px] rounded-[10px] border-custom-border-grey hover:border-custom-green">
       <div className="flex items-center justify-between">
@@ -26,7 +17,7 @@ const RateCard = ({
         <div className="black-text-3 flex text-sm font-normal items-center gap-x-2">
           <p>{origin_port_code}</p>
           <span>
-            <img src="images/dash.svg" alt="hyphen" />
+            <img src={dash} alt="dash" />
           </span>
           <p>{destination_port_code}</p>
         </div>
