@@ -5,15 +5,7 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import RatesContainer from "./RatesContainer";
 import RatesList from "./RatesList";
 import { getUniqueLiners } from "@/helpers/utils";
-
-const SingleLiner = ({ liner, selectedLiner, setSelectedLiner }) => (
-  <div
-    className={`${selectedLiner === liner ? "bg-custom-blue text-white" : ""} flex items-center gap-x-2 px-4 py-3 border-solid border-[1px] rounded w-auto min-w-fit cursor-pointer border-[#9CA3AF] text-[#1F2937]`}
-    onClick={() => setSelectedLiner(liner)}
-  >
-    {liner}
-  </div>
-);
+import RatesHeader from "./RatesHeader";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const RatesComponent = (props: any) => {
@@ -24,6 +16,8 @@ const RatesComponent = (props: any) => {
 
   const [linerList, setLinerList] = useState([]);
   const [selectedLiner, setSelectedLiner] = useState("");
+
+  const [itemsPerPage] = useState(9);
 
   const [specialRates, setSpecialRates] = useState([]);
 
@@ -63,26 +57,11 @@ const RatesComponent = (props: any) => {
 
   return (
     <>
-      <div>
-        <div className="mt-10 pb-8 border-b border-custom-border-grey flex flex-col gap-y-5 md:gap-y-0 md:flex-row md:justify-between md:items-center gap-x-3 relative">
-          <div className="flex items-center gap-x-3">
-            {/* <RateSelect type="size" />
-        <RateSelect type="type" /> */}
-            HELLO
-          </div>
-          <div className="flex scrollbar items-center gap-x-3 max-w-[520px] lg:max-w-[750px] overflow-auto">
-            {linerList.length > 0 &&
-              linerList.map((liner, idx) => (
-                <SingleLiner
-                  key={idx}
-                  liner={liner}
-                  selectedLiner={selectedLiner}
-                  setSelectedLiner={setSelectedLiner}
-                />
-              ))}
-          </div>
-        </div>
-      </div>
+      <RatesHeader
+        linerList={linerList}
+        selectedLiner={selectedLiner}
+        setSelectedLiner={setSelectedLiner}
+      />
 
       {getting_special_rates ? (
         <div className="flex items-center justify-center">
@@ -94,7 +73,10 @@ const RatesComponent = (props: any) => {
             {specialRates.length === 0 || error ? (
               <p>No Rates to Display</p>
             ) : (
-              <RatesList rates={specialRates} />
+              <RatesList
+                itemsPerPage={itemsPerPage}
+                special_rates={specialRates as any}
+              />
             )}
           </RatesContainer>
         </div>

@@ -1,10 +1,9 @@
 import RateCard from "./RateCard";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const RatesList = (special_rates: any) => {
+const RatesList = ({ special_rates, itemsPerPage }) => {
   return (
     <>
-      {special_rates.rates.map((rate, idx) => (
+      {special_rates.slice(0, itemsPerPage).map((rate, idx) => (
         <RateCard
           key={idx}
           amountUsd={rate.total_amount_usd}
