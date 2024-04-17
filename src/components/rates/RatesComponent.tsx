@@ -7,13 +7,15 @@ import RatesList from "./RatesList";
 import { getUniqueLiners } from "@/helpers/utils";
 import RatesHeader from "./RatesHeader";
 import RatesPagination from "./RatesPagination";
+import RatesFilter from "./RatesFilter";
+import RateOptions from "./RateOptions";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const RatesComponent = (props: any) => {
   const { error, getting_special_rates, special_rates, getSpecialRate } = props;
 
-  const [size] = useState<string>("20FT");
-  const [type] = useState<string>("dry");
+  const [size, setSize] = useState<string>("20FT");
+  const [type, setType] = useState<string>("DRY");
 
   const [linerList, setLinerList] = useState([]);
   const [selectedLiner, setSelectedLiner] = useState("");
@@ -25,7 +27,7 @@ const RatesComponent = (props: any) => {
   //fetches the special rates
   useEffect(() => {
     getSpecialRate({
-      container_type: type,
+      container_type: type.toLowerCase(),
       container_size: size,
     });
   }, [size, type]);
@@ -58,11 +60,19 @@ const RatesComponent = (props: any) => {
 
   return (
     <>
-      <RatesHeader
-        linerList={linerList}
-        selectedLiner={selectedLiner}
-        setSelectedLiner={setSelectedLiner}
-      />
+      <RatesHeader>
+        <RateOptions
+          size={size}
+          type={type}
+          setSize={setSize}
+          setType={setType}
+        />
+        <RatesFilter
+          linerList={linerList}
+          selectedLiner={selectedLiner}
+          setSelectedLiner={setSelectedLiner}
+        />
+      </RatesHeader>
 
       {getting_special_rates ? (
         <div className="flex items-center justify-center">
