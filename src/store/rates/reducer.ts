@@ -1,13 +1,7 @@
-import {
-  GET_SPECIAL_RATE,
-  SET_SPECIAL_RATE_SIZE,
-  SET_SPECIAL_RATE_TYPE,
-} from "./constants";
+import { GET_SPECIAL_RATE } from "./constants";
 
 const initialState = {
   error: "",
-  size: "20FT",
-  type: "dry",
   getting_special_rates: false,
   special_rates: [] || {},
   total_special_rates: null,
@@ -35,18 +29,6 @@ const rates = (state = initialState, action) => {
         ...state,
         error: action.payload.error,
         getting_special_rates: false,
-      };
-      break;
-    case SET_SPECIAL_RATE_SIZE:
-      state = {
-        ...state,
-        size: action.payload,
-      };
-      break;
-    case SET_SPECIAL_RATE_TYPE:
-      state = {
-        ...state,
-        type: action.payload,
       };
       break;
   }

@@ -6,6 +6,7 @@ import RatesContainer from "./RatesContainer";
 import RatesList from "./RatesList";
 import { getUniqueLiners } from "@/helpers/utils";
 import RatesHeader from "./RatesHeader";
+import RatesPagination from "./RatesPagination";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const RatesComponent = (props: any) => {
@@ -17,14 +18,14 @@ const RatesComponent = (props: any) => {
   const [linerList, setLinerList] = useState([]);
   const [selectedLiner, setSelectedLiner] = useState("");
 
-  const [itemsPerPage] = useState(9);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
 
   const [specialRates, setSpecialRates] = useState([]);
 
   //fetches the special rates
   useEffect(() => {
     getSpecialRate({
-      container_type: type.toLowerCase(),
+      container_type: type,
       container_size: size,
     });
   }, [size, type]);
@@ -79,6 +80,13 @@ const RatesComponent = (props: any) => {
               />
             )}
           </RatesContainer>
+          {specialRates.length >= itemsPerPage && (
+            <RatesPagination
+              special_rates={specialRates}
+              itemsPerPage={itemsPerPage}
+              setItemsPerPage={setItemsPerPage}
+            />
+          )}
         </div>
       )}
     </>
