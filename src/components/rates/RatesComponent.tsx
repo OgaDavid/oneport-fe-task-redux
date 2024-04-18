@@ -39,6 +39,7 @@ const RatesComponent = (props: any) => {
       container_type: type.toLowerCase(),
       container_size: size,
     });
+    setItemsPerPage(9);
   }, [size, type]);
 
   // set special rate and liners to an array
