@@ -76,19 +76,6 @@ const RatesComponent = (props: any) => {
             Special Rates
           </h1>
         </div>
-        <RatesHeader>
-          <RateOptions
-            size={size}
-            type={type}
-            setSize={setSize}
-            setType={setType}
-          />
-          <RatesFilter
-            linerList={linerList}
-            selectedLiner={selectedLiner}
-            setSelectedLiner={setSelectedLiner}
-          />
-        </RatesHeader>
 
         {getting_special_rates ? (
           <div className="flex items-center justify-center">
@@ -96,6 +83,19 @@ const RatesComponent = (props: any) => {
           </div>
         ) : (
           <div>
+            <RatesHeader>
+              <RateOptions
+                size={size}
+                type={type}
+                setSize={setSize}
+                setType={setType}
+              />
+              <RatesFilter
+                linerList={linerList}
+                selectedLiner={selectedLiner}
+                setSelectedLiner={setSelectedLiner}
+              />
+            </RatesHeader>
             <RatesContainer>
               {specialRates.length === 0 || error ? (
                 <p>No Rates to Display</p>
