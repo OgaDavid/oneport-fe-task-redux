@@ -7,9 +7,9 @@
 
 ### Tech Stack ⚒
 - React JS
+- Redux & Redux Saga
 - Typescript
 - Tailwind
-- Zustand
 
 <br/>
 
